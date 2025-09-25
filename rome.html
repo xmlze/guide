@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rome Protocol — Testnet Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#f97316;--muted:#9ca3af;--bg:#f8f7f4}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:#111;margin:0;-webkit-font-smoothing:antialiased}
+    .card{transition:transform .28s,box-shadow .28s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(16,24,40,.08)}
+    .detail-box{max-height:0;opacity:0;overflow:hidden;transition:max-height .42s,opacity .32s,transform .32s}
+    .detail-box.show{max-height:420px;opacity:1;transform:translateY(0)}
+    .progress-bar{height:12px;border-radius:999px;background:#e6e7ea;overflow:hidden}
+    .progress{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#fb923c);transition:width .6s}
+    input[type=checkbox]{width:18px;height:18px;appearance:none;border:1px solid #d1d5db;border-radius:4px;position:relative;background:#fff}
+    input[type=checkbox]:checked{background:linear-gradient(90deg,var(--accent),#fb923c)}
+    input[type=checkbox]:checked::after{content:'✓';position:absolute;left:3px;top:-1px;font-size:12px;color:white}
+    .done{text-decoration:line-through;opacity:.7}
+    textarea{min-height:120px;border:1px solid #e6e7ea;border-radius:10px;padding:.6rem}
+    textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 8px 24px rgba(249,115,22,.08)}
+    #saved-msg{position:fixed;right:20px;bottom:22px;background:#fff;border-radius:9px;padding:.55rem .9rem;border:1px solid #eee;box-shadow:0 8px 24px rgba(16,24,40,.08);opacity:0;transform:translateY(8px);transition:all .36s}
+    #saved-msg.show{opacity:1;transform:translateY(0)}
+    .link-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .6rem;border-radius:.5rem;border:1px solid #eee;background:#fff;font-size:.9rem}
+    .link-btn:hover{box-shadow:0 6px 18px rgba(16,24,40,.06);transform:translateY(-2px)}
+  </style>
+</head>
+<body>
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b">
+  <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="text-2xl font-bold text-orange-600">Rome Protocol Guide</div>
+    <nav class="space-x-4 text-sm text-stone-600">
+      <a href="#about">About</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#daily-notes">Daily & Notes</a>
+      <a href="#links">Resources</a>
+    </nav>
+  </div>
+</header>
+<main class="container mx-auto px-6 py-10">
+  <!-- About -->
+  <section id="about" class="mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h2 class="text-2xl font-bold mb-3">Tentang Rome</h2>
+        <p class="text-stone-600">Rome adalah infrastruktur modular dengan Solana sebagai shared sequencer untuk rollup & L2, fokus pada kecepatan finalisasi, interoperabilitas, dan koordinasi lintas ekosistem (Ethereum, Bitcoin, Cosmos).</p>
+      </div>
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h3 class="text-lg font-semibold mb-3">Detail Proyek</h3>
+        <dl class="grid grid-cols-1 gap-3 text-sm text-stone-600">
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Funding</dt><dd>$9M seed (Hack VC, Portal Ventures, HashKey, pendiri Solana)</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Backers</dt><dd>Hack VC, Portal Ventures, HashKey Capital</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Status</dt><dd>Testnet aktif</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Tokenomics</dt><dd>Belum diumumkan</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Mainnet ETA</dt><dd>Belum ada info</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section id="workflow" class="mb-8">
+    <h3 class="text-xl font-bold mb-4">Alur Kontribusi</h3>
+    <div id="workflow-steps" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    <div class="mt-5">
+      <div class="progress-bar"><div id="workflow-progress" class="progress"></div></div>
+      <p id="workflow-status" class="text-sm text-stone-500 mt-2">[0/0 steps]</p>
+    </div>
+  </section>
+
+  <!-- Daily tasks + Notes -->
+  <section id="daily-notes" class="mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h4 class="text-lg font-semibold mb-3">Checklist Harian</h4>
+        <ul id="daily-tasks" class="space-y-3 text-sm text-stone-600"></ul>
+        <div class="mt-4">
+          <div class="progress-bar"><div id="daily-progress" class="progress"></div></div>
+          <p id="daily-status" class="text-sm text-stone-500 mt-2">[0/0 tugas]</p>
+        </div>
+      </div>
+      <div class="card bg-white p-6 rounded-2xl border flex flex-col">
+        <h4 class="text-lg font-semibold mb-3">Catatan / Proof</h4>
+        <textarea id="notes-box" placeholder="Simpan tx hash, link report, atau catatan..."></textarea>
+        <div class="mt-3 flex items-center justify-between">
+          <small class="text-xs text-stone-500">Auto-save ke browser</small>
+          <button id="clear-notes" class="text-sm px-3 py-1 border rounded-md">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources & Ecosystem -->
+  <section id="links" class="mb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h4 class="text-lg font-semibold mb-4">Official Resources</h4>
+        <div id="resources-grid" class="grid sm:grid-cols-2 gap-4"></div>
+      </div>
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h4 class="text-lg font-semibold mb-4">Ecosystem Links</h4>
+        <div id="ecosystem-grid" class="grid sm:grid-cols-2 gap-4"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="bg-stone-800 text-white py-6 text-center">
+  <p class="text-sm">Disclaimer: Template edukasi — isi bisa berubah, DYOR.</p>
+</footer>
+<div id="saved-msg">Tersimpan ✅</div>
+<script>
+const PROJECT_KEY = 'ROME_GUIDE';
+const steps = [
+  {title:'Buat Wallet & Identity',desc:'Gunakan wallet EVM (MetaMask) & klaim Imperia (Rome Citizens).',details:'Identity Imperia dipakai sebagai on-chain ID, penting untuk reputasi.',links:[{label:'Rome Citizens',url:'https://www.rome.builders/imperia'}]},
+  {title:'Join Testnet',desc:'Hubungkan wallet, akses testnet/devnet.',details:'Deploy rollup sample menggunakan rome-l2 & romescout.',links:[{label:'Docs',url:'https://docs.rome.builders'}]},
+  {title:'Deploy Smart Contract',desc:'Coba deploy ERC20/NFT di testnet Rome.',details:'Gunakan Remix/Hardhat, uji cross-chain bila tersedia.'},
+  {title:'Bug Report & Feedback',desc:'Telusuri kode repo GitHub, laporkan bug.',details:'Gunakan format bug report singkat di Discord.',links:[{label:'Discord',url:'https://discord.gg/romeprotocol'}]},
+  {title:'Kontribusi Developer',desc:'Buat SDK/tooling tambahan, kirim PR.',details:'Repo aktif di GitHub Rome.',links:[{label:'GitHub',url:'https://github.com/rome-protocol'}]},
+  {title:'Konten Edukasi',desc:'Tulis tutorial/thread untuk komunitas.',details:'Bagikan di X/Twitter & Discord.',links:[{label:'Twitter',url:'https://x.com/romeprotocol'}]}
+];
+const dailyTasks = [
+  'Cek update di Discord Rome',
+  'Jalankan 1 transaksi di testnet',
+  'Catat bug/error jika muncul',
+  'Update progress di catatan'
+];
+const resources = [
+  {name:'Website',url:'https://www.rome.builders',icon:'🌐'},
+  {name:'Docs',url:'https://docs.rome.builders',icon:'📖'},
+  {name:'Discord',url:'https://discord.gg/romeprotocol',icon:'💬'},
+  {name:'Twitter',url:'https://x.com/romeprotocol',icon:'🐦'},
+  {name:'GitHub',url:'https://github.com/rome-protocol',icon:'💻'}
+];
+const ecosystem = [
+  {name:'Explorer Romescout',url:'https://github.com/rome-protocol/romescout',icon:'🔍'},
+  {name:'op-geth',url:'https://github.com/rome-protocol/op-geth',icon:'⚙️'},
+  {name:'reth',url:'https://github.com/rome-protocol/reth',icon:'🔗'}
+];
+
+// populate UI
+function safeText(el,txt){if(!txt)return;el.textContent=txt}
+const stepContainer=document.getElementById('workflow-steps');steps.forEach((s,i)=>{const card=document.createElement('div');card.className='card bg-white p-5 rounded-xl border';let linksHtml='';if(s.links){linksHtml='<div class="mt-3 flex flex-wrap gap-2">';s.links.forEach(L=>{linksHtml+=`<a class="link-btn" href="${L.url}" target="_blank">${L.label}</a>`});linksHtml+='</div>'}card.innerHTML=`<h4 class="font-semibold mb-1">${s.title}</h4><p class="text-sm text-stone-600">${s.desc}</p><div class="mt-3"><button class="text-orange-600 text-sm" onclick="toggleDetail(${i},this)">Lihat Detail ▾</button></div><div id="detail-${i}" class="detail-box mt-3 text-sm text-stone-500">${s.details||''}${linksHtml}</div><label class="flex items-center mt-4 text-sm"><input type="checkbox" data-step="${i}" class="mr-2"> Tandai selesai</label>`;stepContainer.appendChild(card)});
+const rgrid=document.getElementById('resources-grid');resources.forEach(r=>{const a=document.createElement('a');a.href=r.url;a.target='_blank';a.className='bg-white p-4 rounded-xl border flex items-center gap-3 hover:shadow';a.innerHTML=`<div class="text-2xl">${r.icon}</div><div><strong>${r.name}</strong></div>`;rgrid.appendChild(a)});
+const egrid=document.getElementById('ecosystem-grid');ecosystem.forEach(e=>{const a=document.createElement('a');a.href=e.url;a.target='_blank';a.className='bg-white p-4 rounded-xl border flex items-center gap-3 hover:shadow';a.innerHTML=`<div class="text-2xl">${e.icon}</div><div><strong>${e.name}</strong></div>`;egrid.appendChild(a)});
+
+function toggleDetail(i,btn){const el=document.getElementById('detail-'+i);el.classList.toggle('show');btn.textContent=el.classList.contains('show')?'Sembunyikan Detail ▴':'Lihat Detail ▾'}
+function updateWorkflowProgress(){const boxes=document.querySelectorAll('#workflow-steps input');const done=[...boxes].filter(c=>c.checked).length;const total=boxes.length;const p=total?Math.round(done/total*100):0;document.getElementById('workflow-progress').style.width=p+'%';document.getElementById('workflow-status').textContent=`${done}/${total} steps (${p}%)`;localStorage.setItem(PROJECT_KEY+':workflow',JSON.stringify([...boxes].map(c=>c.checked)))}
+function updateDailyProgress(){const checks=document.querySelectorAll('#daily-tasks input');checks.forEach(c=>{if(c.checked)c.nextElementSibling.classList.add('done');else c.nextElementSibling.classList.remove('done')});const done=[...checks].filter(c=>c.checked).length;const total=checks.length;const p=total?Math.round(done/total*100):0;document.getElementById('daily-progress').style.width=p+'%';document.getElementById('daily-status').textContent=`${done}/${total} tugas (${p}%)`;localStorage.setItem(PROJECT_KEY+':daily',JSON.stringify([...checks].map(c=>c.checked)))}
+window.addEventListener('load',()=>{const savedW=JSON.parse(localStorage.getItem(PROJECT_KEY+':workflow')||'[]');document.querySelectorAll('#workflow-steps input').forEach((b,i)=>{if(savedW[i])b.checked=true;b.addEventListener('change',updateWorkflowProgress)});updateWorkflowProgress();const savedD=JSON.parse(localStorage.getItem(PROJECT_KEY+':daily')||'[]');const dailyContainer=document.getElementById('daily-tasks');dailyTasks.forEach((t,i)=>{const li=document.createElement('li');const checked=savedD[i]?'checked':'';li.innerHTML=`<label class="flex items-center"><input type="checkbox" data-daily="${i}" class="mr-3" ${checked}><span>${t}</span></label>`;dailyContainer.appendChild(li)});document.querySelectorAll('#daily-tasks input').forEach((c,i)=>{c.addEventListener('change',updateDailyProgress);if(savedD[i])c.nextElementSibling.classList.add('done')});updateDailyProgress();const notesBox=document.getElementById('notes-box');notesBox.value=localStorage.getItem(PROJECT_KEY+':notes')||'';let saveTimer;notesBox.addEventListener('input',()=>{clearTimeout(saveTimer);saveTimer=setTimeout(()=>{localStorage.setItem(PROJECT_KEY+':notes',notesBox.value);document.getElementById('saved-msg').classList.add('show');setTimeout(()=>document.getElementById('saved-msg').classList.remove('show'),1200)},250)});document.getElementById('clear-notes').addEventListener('click',()=>{notesBox.value='';localStorage.removeItem(PROJECT_KEY+':notes')})});
+</script>
+</body>
+</html>
