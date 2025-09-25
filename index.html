@@ -9,34 +9,40 @@ body {
   font-family: Arial, sans-serif;
   background: #f5f5f5;
   color: #333;
+  margin: 0;
   padding: 2rem;
 }
 h1 {
   color: #2c3e50;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
-ul {
-  list-style: none;
-  padding: 0;
-  max-width: 600px;
+#file-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0;
 }
 li {
+  list-style: none;
   background: #fff;
-  margin: 0.5rem 0;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 li:hover {
-  transform: translateX(5px);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 a {
   text-decoration: none;
   color: #2980b9;
   font-weight: bold;
+  display: block;
+  word-break: break-word;
 }
 a:hover {
   color: #1abc9c;
