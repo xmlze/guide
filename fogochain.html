@@ -1,209 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Fogo Testnet Guide</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#f97316;--muted:#9ca3af;--bg:#f8f7f4}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:#44403c;margin:0}
+    .card{transition:transform .25s,box-shadow .25s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.06)}
+    .detail-box{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s,opacity .4s}
+    .detail-box.show{max-height:400px;opacity:1}
+    .progress-bar{height:10px;border-radius:999px;background:#e5e7eb;overflow:hidden}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#fb923c);transition:width .4s}
+    input[type=checkbox]{width:18px;height:18px;border:1px solid #d1d5db;border-radius:4px;appearance:none;background:#fff;cursor:pointer}
+    input[type=checkbox]:checked{background:linear-gradient(90deg,var(--accent),#fb923c)}
+    .done{text-decoration:line-through;color:var(--muted)}
+    textarea{min-height:120px;border:1px solid #ddd;border-radius:10px;padding:.6rem;width:100%}
+    #saved-msg{position:fixed;right:20px;bottom:20px;background:#fff;border:1px solid #eee;padding:.5rem 1rem;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.1);opacity:0;transition:all .3s}
+    #saved-msg.show{opacity:1;}
+  </style>
 </head>
-<body class="bg-[#f8f7f4] text-[#44403c] font-inter">
-  <!-- Navbar -->
-  <header class="fixed top-0 left-0 w-full bg-white/60 backdrop-blur-md shadow-sm z-50">
-    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
-      <h1 class="text-xl font-bold">Fogo Testnet</h1>
-      <nav class="hidden md:flex gap-6">
-        <a href="#about" class="hover:underline">About</a>
-        <a href="#workflow" class="hover:underline">Workflow</a>
-        <a href="#daily" class="hover:underline">Daily & Notes</a>
-        <a href="#resources" class="hover:underline">Resources</a>
-        <a href="#ecosystem" class="hover:underline">Ecosystem</a>
+<body>
+  <header class="sticky top-0 bg-white/80 backdrop-blur border-b z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
+      <div class="text-2xl font-bold text-orange-600">Fogo Testnet Guide</div>
+      <nav class="hidden md:flex gap-6 text-sm text-stone-600">
+        <a href="#about">About</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#daily">Daily & Notes</a>
+        <a href="#resources">Resources</a>
+        <a href="#ecosystem">Ecosystem</a>
       </nav>
-      <button id="menu-btn" class="md:hidden">☰</button>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-white/90 backdrop-blur-md p-4">
-      <a href="#about" class="block py-2">About</a>
-      <a href="#workflow" class="block py-2">Workflow</a>
-      <a href="#daily" class="block py-2">Daily & Notes</a>
-      <a href="#resources" class="block py-2">Resources</a>
-      <a href="#ecosystem" class="block py-2">Ecosystem</a>
     </div>
   </header>
 
-  <main class="pt-24 max-w-6xl mx-auto px-4 space-y-16">
+  <main class="max-w-6xl mx-auto px-6 py-10">
     <!-- About -->
-    <section id="about">
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl shadow p-6">
-          <h2 class="text-2xl font-bold mb-2">Fogo</h2>
-          <p>Layer-1 berbasis SVM (Solana Virtual Machine) dengan client Firedancer untuk throughput tinggi & latensi rendah. Target: aplikasi DeFi real-time dan finansial institusional.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow p-6">
-          <ul class="space-y-2 text-sm">
-            <li><strong>Funding:</strong> $13.5M (Distributed Global, CMS Holdings)</li>
-            <li><strong>Status:</strong> Testnet (Mainnet ETA Q3 2025)</li>
-            <li><strong>Tokenomics:</strong> ~1B supply (detail TBA)</li>
-            <li><strong>Backers:</strong> Echo, Cobie, dll</li>
-          </ul>
-        </div>
+    <section id="about" class="grid md:grid-cols-2 gap-6 mb-12">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h2 class="text-xl font-bold mb-3">Tentang Fogo</h2>
+        <p class="text-stone-600">Fogo adalah blockchain Layer-1 berbasis SVM dengan fokus performa tinggi (low latency, high throughput). Dibangun untuk DeFi institusional, trading real-time, dan order book. Saat ini berada di fase testnet publik.</p>
+      </div>
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h3 class="font-semibold mb-3">Detail Proyek</h3>
+        <dl class="text-sm space-y-2">
+          <div class="flex justify-between"><dt class="font-medium">Funding</dt><dd>$13.5M (Seed + Public Sale)</dd></div>
+          <div class="flex justify-between"><dt class="font-medium">Backers</dt><dd>Distributed Global, CMS Holdings</dd></div>
+          <div class="flex justify-between"><dt class="font-medium">Status</dt><dd>Testnet live</dd></div>
+          <div class="flex justify-between"><dt class="font-medium">Tokenomics</dt><dd>Supply ~1B FOGO (detail tbd)</dd></div>
+          <div class="flex justify-between"><dt class="font-medium">Mainnet ETA</dt><dd>Q3 2025</dd></div>
+        </dl>
       </div>
     </section>
 
     <!-- Workflow -->
-    <section id="workflow">
-      <h2 class="text-2xl font-bold mb-6">Workflow / Alur Kontribusi</h2>
-      <div class="grid md:grid-cols-2 gap-6" id="steps"></div>
-      <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
-        <div id="progress" class="bg-green-500 h-2 rounded-full" style="width:0%"></div>
+    <section id="workflow" class="mb-12">
+      <h3 class="text-xl font-bold mb-4">Alur Kontribusi</h3>
+      <div id="steps" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      <div class="mt-4">
+        <div class="progress-bar"><div id="workflow-progress" class="progress"></div></div>
+        <p id="workflow-status" class="text-sm mt-2 text-stone-500"></p>
       </div>
     </section>
 
-    <!-- Daily & Notes -->
-    <section id="daily">
-      <h2 class="text-2xl font-bold mb-6">Daily Checklist & Notes</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Daily Checklist -->
-        <div class="bg-white rounded-xl shadow p-6">
-          <h3 class="font-bold mb-2">Daily Checklist</h3>
-          <ul id="daily-tasks" class="space-y-2"></ul>
-          <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
-            <div id="daily-progress" class="bg-blue-500 h-2 rounded-full" style="width:0%"></div>
-          </div>
+    <!-- Daily + Notes -->
+    <section id="daily" class="grid md:grid-cols-2 gap-6 mb-12">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h4 class="font-semibold mb-3">Checklist Harian</h4>
+        <ul id="daily-tasks" class="space-y-3 text-sm"></ul>
+        <div class="mt-4">
+          <div class="progress-bar"><div id="daily-progress" class="progress"></div></div>
+          <p id="daily-status" class="text-sm text-stone-500 mt-2"></p>
         </div>
-        <!-- Notes -->
-        <div class="bg-white rounded-xl shadow p-6">
-          <h3 class="font-bold mb-2">Notes / Proof</h3>
-          <textarea id="notes" class="w-full border rounded p-2 h-40"></textarea>
-          <button id="clear-notes" class="mt-2 bg-red-500 text-white px-3 py-1 rounded">Clear</button>
-          <p id="save-msg" class="text-xs text-green-600 mt-1 hidden">Tersimpan ✅</p>
+      </div>
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h4 class="font-semibold mb-3">Catatan / Proof</h4>
+        <textarea id="notes" placeholder="Simpan tx hash, laporan bug, atau screenshot link..."></textarea>
+        <div class="flex justify-between items-center mt-3">
+          <small class="text-xs text-stone-500">Auto-save localStorage</small>
+          <button id="clear-notes" class="border px-3 py-1 rounded">Clear</button>
         </div>
       </div>
     </section>
 
     <!-- Resources & Ecosystem -->
-    <section id="resources">
-      <h2 class="text-2xl font-bold mb-6">Resources & Ecosystem</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl shadow p-6">
-          <h3 class="font-bold mb-2">Resources</h3>
-          <ul class="space-y-2" id="resources-list"></ul>
-        </div>
-        <div class="bg-white rounded-xl shadow p-6">
-          <h3 class="font-bold mb-2">Ecosystem</h3>
-          <ul class="space-y-2" id="ecosystem-list"></ul>
-        </div>
+    <section id="resources" class="grid md:grid-cols-2 gap-6 mb-12">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h4 class="font-semibold mb-3">Resources</h4>
+        <div id="resources-grid" class="grid sm:grid-cols-2 gap-4"></div>
+      </div>
+      <div class="card bg-white p-6 rounded-2xl border" id="ecosystem">
+        <h4 class="font-semibold mb-3">Ecosystem Links</h4>
+        <div id="ecosystem-grid" class="grid sm:grid-cols-2 gap-4"></div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white text-center p-4 mt-16">
-    <p>Template netral — DYOR</p>
+  <footer class="bg-stone-800 text-white py-6 text-center">
+    <p class="text-sm">Disclaimer: Template panduan kontribusi Fogo Testnet — DYOR.</p>
   </footer>
 
+  <div id="saved-msg">Tersimpan ✅</div>
+
   <script>
-    // Mobile menu
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-    // Steps data
     const steps = [
-      {title: 'Setup Wallet & Faucet', desc: 'Gunakan Phantom/Backpack, klaim FOGO di faucet.'},
-      {title: 'Jalankan Node', desc: 'Clone repo, build dengan cargo, join entrypoint testnet.'},
-      {title: 'Interaksi On-chain', desc: 'Lakukan transfer, staking, swap, cancel order.'},
-      {title: 'Join Flames Leaderboard', desc: 'Aktif bertransaksi untuk naik ranking.'},
-      {title: 'Bug Report', desc: 'Lapor error/latensi di Discord/GitHub dengan bukti tx.'},
-      {title: 'Buat Konten Edukatif', desc: 'Thread/tutorial cara join Fogo testnet.'}
+      {title:'Claim Faucet',desc:'Klaim token testnet FOGO',details:'Gunakan faucet resmi untuk klaim test token.',links:[{label:'Faucet',url:'https://faucet.fogo.io'}]},
+      {title:'Jalankan Node',desc:'Setup validator/test-node',details:'Clone repo, build dengan cargo, connect ke testnet entrypoint.',links:[{label:'Repo',url:'https://github.com/fogo-labs/fogo'}]},
+      {title:'Transaksi On-chain',desc:'Lakukan 5+ interaksi',details:'Transfer, swap, stake, cancel order, deposit/borrow jika tersedia.',links:[{label:'Explorer',url:'https://explorer.fogo.io'}]},
+      {title:'Bug Report',desc:'Lapor error atau UX isu',details:'Gunakan template bug report singkat di Discord/GitHub.',links:[{label:'Discord',url:'https://discord.gg/fogo'}]},
+      {title:'Konten Edukatif',desc:'Buat thread/tutorial publik',details:'Share panduan join testnet, sertakan tx-hash.',links:[{label:'X/Twitter',url:'https://twitter.com/fogo'}]},
+      {title:'Docs Translation',desc:'Bantu dokumentasi',details:'Terjemahkan docs ke bahasa lokal, kirim di forum.',links:[{label:'Docs',url:'https://docs.fogo.io'}]}
     ];
 
-    const stepsEl = document.getElementById('steps');
-    let completed = Array(steps.length).fill(false);
+    const dailyTasks = [
+      'Claim faucet 1x/hari',
+      'Lakukan swap/test tx',
+      'Catat tx hash di Notes',
+      'Cek Discord update',
+      'Jalankan node minimal 1 jam'
+    ];
 
-    steps.forEach((s, i) => {
-      const card = document.createElement('div');
-      card.className = 'bg-white rounded-xl shadow p-4';
-      card.innerHTML = `<h3 class="font-bold">${s.title}</h3><p class="text-sm mb-2">${s.desc}</p>
-        <label class="flex items-center gap-2 text-sm"><input type="checkbox" data-step="${i}"/> Tandai selesai</label>`;
-      stepsEl.appendChild(card);
-    });
-
-    stepsEl.addEventListener('change', e => {
-      if(e.target.dataset.step !== undefined){
-        completed[e.target.dataset.step] = e.target.checked;
-        const percent = (completed.filter(Boolean).length/steps.length)*100;
-        document.getElementById('progress').style.width = percent+'%';
-      }
-    });
-
-    // Daily tasks
-    const dailyTasks = ['Claim faucet', '2-3 transaksi (transfer/swap/stake)', 'Simpan tx-hash/screenshot', 'Aktif Discord', 'Run node minimal 1 jam'];
-    const dailyTasksEl = document.getElementById('daily-tasks');
-    let dailyDone = Array(dailyTasks.length).fill(false);
-
-    dailyTasks.forEach((t,i)=>{
-      const li = document.createElement('li');
-      li.innerHTML = `<label class="flex items-center gap-2"><input type="checkbox" data-daily="${i}"/> ${t}</label>`;
-      dailyTasksEl.appendChild(li);
-    });
-
-    dailyTasksEl.addEventListener('change', e => {
-      if(e.target.dataset.daily !== undefined){
-        dailyDone[e.target.dataset.daily] = e.target.checked;
-        const percent = (dailyDone.filter(Boolean).length/dailyTasks.length)*100;
-        document.getElementById('daily-progress').style.width = percent+'%';
-        localStorage.setItem('dailyDone', JSON.stringify(dailyDone));
-      }
-    });
-
-    // Load daily state
-    if(localStorage.getItem('dailyDone')){
-      dailyDone = JSON.parse(localStorage.getItem('dailyDone'));
-      dailyDone.forEach((val,i)=>{
-        if(val) dailyTasksEl.querySelector(`[data-daily='${i}']`).checked = true;
-      });
-      document.getElementById('daily-progress').style.width = (dailyDone.filter(Boolean).length/dailyTasks.length)*100+'%';
-    }
-
-    // Notes autosave
-    const notes = document.getElementById('notes');
-    const saveMsg = document.getElementById('save-msg');
-    notes.value = localStorage.getItem('notes')||'';
-    notes.addEventListener('input', ()=>{
-      localStorage.setItem('notes', notes.value);
-      saveMsg.classList.remove('hidden');
-      setTimeout(()=> saveMsg.classList.add('hidden'),1000);
-    });
-    document.getElementById('clear-notes').addEventListener('click', ()=>{
-      notes.value=''; localStorage.removeItem('notes');
-    });
-
-    // Resources & Ecosystem
     const resources = [
-      {name:'Website', url:'https://www.fogo.io'},
-      {name:'Docs', url:'https://docs.fogo.io'},
-      {name:'Discord', url:'https://discord.gg/fogo'},
-      {name:'Twitter/X', url:'https://x.com/fogochain'},
-      {name:'Faucet', url:'https://faucet.fogo.io'}
+      {name:'Website',url:'https://www.fogo.io',icon:'🌐'},
+      {name:'Docs',url:'https://docs.fogo.io',icon:'📖'},
+      {name:'Discord',url:'https://discord.gg/fogo',icon:'💬'},
+      {name:'Twitter/X',url:'https://twitter.com/fogo',icon:'🐦'}
     ];
+
     const ecosystem = [
-      {name:'Explorer', url:'https://explorer.fogo.io'},
-      {name:'Pyron Lending', url:'https://app.pyron.fi'},
-      {name:'DEX Testnet', url:'#'}
+      {name:'Explorer',url:'https://explorer.fogo.io',icon:'🔍'},
+      {name:'Flames Leaderboard',url:'https://flames.fogo.io',icon:'🔥'},
+      {name:'Pyron (Lending)',url:'https://app.pyron.fi',icon:'💰'}
     ];
 
-    const resEl = document.getElementById('resources-list');
-    const ecoEl = document.getElementById('ecosystem-list');
+    // build steps
+    const stepsBox=document.getElementById('steps');
+    steps.forEach((s,i)=>{
+      const card=document.createElement('div');card.className='card bg-white p-5 rounded-xl border';
+      let links='';
+      if(s.links){links='<div class="mt-3 flex flex-wrap gap-2">';s.links.forEach(L=>{links+=`<a href="${L.url}" target="_blank" class="border px-2 py-1 rounded text-sm">${L.label}</a>`});links+='</div>';}
+      card.innerHTML=`<h4 class='font-semibold mb-1'>${s.title}</h4><p class='text-sm text-stone-600'>${s.desc}</p><div class='mt-2'><button onclick="toggleDetail(${i},this)" class='text-orange-600 text-sm'>Lihat Detail ▾</button></div><div id='detail-${i}' class='detail-box mt-2 text-sm text-stone-500'>${s.details}${links}</div><label class='flex items-center mt-3 text-sm'><input type='checkbox' data-step='${i}' class='mr-2'> Tandai selesai</label>`;
+      stepsBox.appendChild(card);
+    });
 
-    resources.forEach(r=>{
-      const li=document.createElement('li');
-      li.innerHTML = `<a href="${r.url}" target="_blank" class="text-blue-600 hover:underline">${r.name}</a>`;
-      resEl.appendChild(li);
+    // daily tasks
+    const savedD = JSON.parse(localStorage.getItem('fogo:daily')||'[]');
+    const dailyBox=document.getElementById('daily-tasks');
+    dailyTasks.forEach((t,i)=>{
+      const li=document.createElement('li');const checked=savedD[i]?'checked':'';
+      li.innerHTML=`<label class='flex items-center'><input type='checkbox' data-daily='${i}' class='mr-2' ${checked}><span class='${checked?'done':''}'>${t}</span></label>`;
+      dailyBox.appendChild(li);
     });
-    ecosystem.forEach(r=>{
-      const li=document.createElement('li');
-      li.innerHTML = `<a href="${r.url}" target="_blank" class="text-blue-600 hover:underline">${r.name}</a>`;
-      ecoEl.appendChild(li);
-    });
+
+    // resources
+    const resBox=document.getElementById('resources-grid');
+    resources.forEach(r=>{resBox.innerHTML+=`<a href='${r.url}' target='_blank' class='bg-white border p-4 rounded-xl flex gap-2 items-center'><div class='text-xl'>${r.icon}</div><div><strong>${r.name}</strong></div></a>`});
+
+    // ecosystem
+    const ecoBox=document.getElementById('ecosystem-grid');
+    ecosystem.forEach(e=>{ecoBox.innerHTML+=`<a href='${e.url}' target='_blank' class='bg-white border p-4 rounded-xl flex gap-2 items-center'><div class='text-xl'>${e.icon}</div><div><strong>${e.name}</strong></div></a>`});
+
+    // progress handling
+    function updateWorkflow(){const boxes=document.querySelectorAll('#steps input');const done=[...boxes].filter(b=>b.checked).length;const total=boxes.length;const p=total?Math.round(done/total*100):0;document.getElementById('workflow-progress').style.width=p+'%';document.getElementById('workflow-status').textContent=`${done}/${total} steps selesai (${p}%)`;localStorage.setItem('fogo:workflow',JSON.stringify([...boxes].map(b=>b.checked)));}
+    function updateDaily(){const boxes=document.querySelectorAll('#daily-tasks input');boxes.forEach(b=>{if(b.checked)b.nextElementSibling.classList.add('done');else b.nextElementSibling.classList.remove('done')});const done=[...boxes].filter(b=>b.checked).length;const total=boxes.length;const p=total?Math.round(done/total*100):0;document.getElementById('daily-progress').style.width=p+'%';document.getElementById('daily-status').textContent=`${done}/${total} tugas selesai (${p}%)`;localStorage.setItem('fogo:daily',JSON.stringify([...boxes].map(b=>b.checked)));}
+    function toggleDetail(i,btn){const el=document.getElementById('detail-'+i);el.classList.toggle('show');btn.textContent=el.classList.contains('show')?'Sembunyikan Detail ▴':'Lihat Detail ▾'}
+    
+    // notes
+    const notes=document.getElementById('notes');notes.value=localStorage.getItem('fogo:notes')||'';notes.addEventListener('input',()=>{localStorage.setItem('fogo:notes',notes.value);showSaved()});
+    document.getElementById('clear-notes').onclick=()=>{notes.value='';localStorage.removeItem('fogo:notes');showSaved('Dikosongkan')}
+
+    function showSaved(msg){const el=document.getElementById('saved-msg');el.textContent=msg||'Tersimpan ✅';el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1200)}
+
+    window.addEventListener('load',()=>{const savedW=JSON.parse(localStorage.getItem('fogo:workflow')||'[]');document.querySelectorAll('#steps input').forEach((b,i)=>{if(savedW[i])b.checked=true;b.onchange=updateWorkflow});updateWorkflow();document.querySelectorAll('#daily-tasks input').forEach(b=>b.onchange=updateDaily);updateDaily();});
   </script>
 </body>
 </html>
