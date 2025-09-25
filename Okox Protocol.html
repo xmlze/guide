@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ekox Testnet Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Inter',sans-serif;background:#f8f7f4;color:#44403c}
+    .card{transition:transform .28s,box-shadow .28s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+    .progress-bar{height:10px;border-radius:999px;background:#e6e7ea;overflow:hidden}
+    .progress{height:100%;width:0;background:linear-gradient(90deg,#f97316,#fb923c);transition:width .4s}
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- Navbar -->
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="text-xl font-bold text-orange-600">Ekox Guide</div>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="#about" class="hover:text-orange-600">About</a>
+      <a href="#workflow" class="hover:text-orange-600">Workflow</a>
+      <a href="#daily" class="hover:text-orange-600">Daily & Notes</a>
+      <a href="#resources" class="hover:text-orange-600">Resources</a>
+      <a href="#ecosystem" class="hover:text-orange-600">Ecosystem</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-8">
+  <!-- About -->
+  <section id="about" class="mb-12 grid md:grid-cols-2 gap-6">
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h2 class="text-2xl font-bold mb-3">Tentang Ekox</h2>
+      <p>Ekox adalah protokol restaking Ethereum. Stake ETH → dapat token likuid <b>eXETH</b> → bisa ditarik atau digunakan kembali. Saat ini mereka jalankan kampanye Buzzdrop senilai $300k dan quest Galxe untuk early supporter.</p>
+    </div>
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h3 class="text-lg font-semibold mb-3">Detail</h3>
+      <dl class="text-sm space-y-1">
+        <div class="flex justify-between"><dt class="font-medium">Funding</dt><dd>$300k Buzzdrop</dd></div>
+        <div class="flex justify-between"><dt class="font-medium">Backers</dt><dd>ChainGPT Pad (launch partner)</dd></div>
+        <div class="flex justify-between"><dt class="font-medium">Status</dt><dd>Testnet aktif</dd></div>
+        <div class="flex justify-between"><dt class="font-medium">Tokenomics</dt><dd>25% unlock TGE, vesting 6 bulan</dd></div>
+        <div class="flex justify-between"><dt class="font-medium">Mainnet ETA</dt><dd>Belum diumumkan</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section id="workflow" class="mb-12">
+    <h3 class="text-xl font-bold mb-4">Alur Kontribusi</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card bg-white p-5 rounded-2xl border">
+        <h4 class="font-semibold mb-1">1. Galxe Quest</h4>
+        <p class="text-sm">Ikuti semua quest resmi di Galxe untuk dapat poin Buzzdrop.</p>
+        <a href="https://app.galxe.com/quest/ekox" target="_blank" class="mt-2 inline-block text-orange-600 text-sm">Buka Galxe →</a>
+      </div>
+      <div class="card bg-white p-5 rounded-2xl border">
+        <h4 class="font-semibold mb-1">2. Staking / Restaking</h4>
+        <p class="text-sm">Stake ETH di dashboard, dapatkan eXETH, coba tarik kembali.</p>
+        <a href="https://ekox.com/dashboard/restaking" target="_blank" class="mt-2 inline-block text-orange-600 text-sm">Dashboard →</a>
+      </div>
+      <div class="card bg-white p-5 rounded-2xl border">
+        <h4 class="font-semibold mb-1">3. Social Tasks</h4>
+        <p class="text-sm">Follow, join komunitas Telegram/Discord, share konten.</p>
+        <a href="https://t.me/ekoxofficial" target="_blank" class="mt-2 inline-block text-orange-600 text-sm">Join Telegram →</a>
+      </div>
+      <div class="card bg-white p-5 rounded-2xl border">
+        <h4 class="font-semibold mb-1">4. Referral / Buzz</h4>
+        <p class="text-sm">Gunakan referral / share link campaign untuk poin ekstra.</p>
+        <a href="https://airdropalert.com/id/airdrops/ekox-chaingpt-pad/" target="_blank" class="mt-2 inline-block text-orange-600 text-sm">Detail Referral →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daily Checklist + Notes -->
+  <section id="daily" class="mb-12 grid md:grid-cols-2 gap-6">
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h4 class="text-lg font-semibold mb-3">Checklist Harian</h4>
+      <ul id="daily-list" class="space-y-2 text-sm">
+        <li><label><input type="checkbox" class="mr-2"> Cek Galxe quest baru</label></li>
+        <li><label><input type="checkbox" class="mr-2"> Stake/withdraw kecil di dashboard</label></li>
+        <li><label><input type="checkbox" class="mr-2"> Screenshot bukti / tx hash</label></li>
+        <li><label><input type="checkbox" class="mr-2"> Aktivitas komunitas (post/discord)</label></li>
+      </ul>
+      <div class="progress-bar mt-3"><div id="daily-progress" class="progress"></div></div>
+    </div>
+    <div class="card bg-white p-6 rounded-2xl border flex flex-col">
+      <h4 class="text-lg font-semibold mb-3">Catatan / Proof</h4>
+      <textarea id="notes" placeholder="Simpan tx hash, link report, dsb." class="border rounded-md p-2 min-h-[120px]"></textarea>
+      <small class="text-xs text-stone-500 mt-2">Auto-save ke browser</small>
+    </div>
+  </section>
+
+  <!-- Resources + Ecosystem -->
+  <section id="resources" class="mb-12 grid md:grid-cols-2 gap-6">
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h4 class="text-lg font-semibold mb-4">Official Resources</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="https://ekox.com" target="_blank" class="text-orange-600">🌐 Website</a></li>
+        <li><a href="https://docs.ekox.com" target="_blank" class="text-orange-600">📘 Docs</a></li>
+        <li><a href="https://app.galxe.com/quest/ekox" target="_blank" class="text-orange-600">⭐ Galxe Quest</a></li>
+        <li><a href="https://x.com/ekoxofficial" target="_blank" class="text-orange-600">🐦 Twitter/X</a></li>
+      </ul>
+    </div>
+    <div id="ecosystem" class="card bg-white p-6 rounded-2xl border">
+      <h4 class="text-lg font-semibold mb-4">Ecosystem Links</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="https://t.me/ekoxofficial" target="_blank" class="text-orange-600">💬 Telegram</a></li>
+        <li><a href="https://discord.gg/" target="_blank" class="text-orange-600">💻 Discord (placeholder)</a></li>
+        <li><a href="https://pad.chaingpt.org/" target="_blank" class="text-orange-600">🚀 ChainGPT Pad</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-800 text-white py-6 text-center">
+  <p class="text-sm">Template panduan kontribusi testnet Ekox — DYOR. Semua bukti simpan mandiri.</p>
+</footer>
+
+<script>
+  // daily checklist progress + autosave notes
+  const boxes=document.querySelectorAll('#daily-list input');
+  const prog=document.getElementById('daily-progress');
+  const update=()=>{let done=[...boxes].filter(b=>b.checked).length;let total=boxes.length;prog.style.width=total?done/total*100+'%':'0%';localStorage.setItem('ekox:daily',JSON.stringify([...boxes].map(b=>b.checked)));};
+  boxes.forEach((b,i)=>{b.addEventListener('change',update)});
+  const saved=JSON.parse(localStorage.getItem('ekox:daily')||'[]');
+  boxes.forEach((b,i)=>{if(saved[i]) b.checked=true});
+  update();
+
+  const notes=document.getElementById('notes');
+  notes.value=localStorage.getItem('ekox:notes')||'';
+  notes.addEventListener('input',()=>{localStorage.setItem('ekox:notes',notes.value)});
+</script>
+</body>
+</html>
