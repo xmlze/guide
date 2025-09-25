@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fogo Testnet Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f8f7f4] text-[#44403c] font-inter">
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 w-full bg-white/60 backdrop-blur-md shadow-sm z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl font-bold">Fogo Testnet</h1>
+      <nav class="hidden md:flex gap-6">
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#workflow" class="hover:underline">Workflow</a>
+        <a href="#daily" class="hover:underline">Daily & Notes</a>
+        <a href="#resources" class="hover:underline">Resources</a>
+        <a href="#ecosystem" class="hover:underline">Ecosystem</a>
+      </nav>
+      <button id="menu-btn" class="md:hidden">☰</button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white/90 backdrop-blur-md p-4">
+      <a href="#about" class="block py-2">About</a>
+      <a href="#workflow" class="block py-2">Workflow</a>
+      <a href="#daily" class="block py-2">Daily & Notes</a>
+      <a href="#resources" class="block py-2">Resources</a>
+      <a href="#ecosystem" class="block py-2">Ecosystem</a>
+    </div>
+  </header>
+
+  <main class="pt-24 max-w-6xl mx-auto px-4 space-y-16">
+    <!-- About -->
+    <section id="about">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl shadow p-6">
+          <h2 class="text-2xl font-bold mb-2">Fogo</h2>
+          <p>Layer-1 berbasis SVM (Solana Virtual Machine) dengan client Firedancer untuk throughput tinggi & latensi rendah. Target: aplikasi DeFi real-time dan finansial institusional.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6">
+          <ul class="space-y-2 text-sm">
+            <li><strong>Funding:</strong> $13.5M (Distributed Global, CMS Holdings)</li>
+            <li><strong>Status:</strong> Testnet (Mainnet ETA Q3 2025)</li>
+            <li><strong>Tokenomics:</strong> ~1B supply (detail TBA)</li>
+            <li><strong>Backers:</strong> Echo, Cobie, dll</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow -->
+    <section id="workflow">
+      <h2 class="text-2xl font-bold mb-6">Workflow / Alur Kontribusi</h2>
+      <div class="grid md:grid-cols-2 gap-6" id="steps"></div>
+      <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+        <div id="progress" class="bg-green-500 h-2 rounded-full" style="width:0%"></div>
+      </div>
+    </section>
+
+    <!-- Daily & Notes -->
+    <section id="daily">
+      <h2 class="text-2xl font-bold mb-6">Daily Checklist & Notes</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Daily Checklist -->
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="font-bold mb-2">Daily Checklist</h3>
+          <ul id="daily-tasks" class="space-y-2"></ul>
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+            <div id="daily-progress" class="bg-blue-500 h-2 rounded-full" style="width:0%"></div>
+          </div>
+        </div>
+        <!-- Notes -->
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="font-bold mb-2">Notes / Proof</h3>
+          <textarea id="notes" class="w-full border rounded p-2 h-40"></textarea>
+          <button id="clear-notes" class="mt-2 bg-red-500 text-white px-3 py-1 rounded">Clear</button>
+          <p id="save-msg" class="text-xs text-green-600 mt-1 hidden">Tersimpan ✅</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources & Ecosystem -->
+    <section id="resources">
+      <h2 class="text-2xl font-bold mb-6">Resources & Ecosystem</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="font-bold mb-2">Resources</h3>
+          <ul class="space-y-2" id="resources-list"></ul>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="font-bold mb-2">Ecosystem</h3>
+          <ul class="space-y-2" id="ecosystem-list"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-16">
+    <p>Template netral — DYOR</p>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Steps data
+    const steps = [
+      {title: 'Setup Wallet & Faucet', desc: 'Gunakan Phantom/Backpack, klaim FOGO di faucet.'},
+      {title: 'Jalankan Node', desc: 'Clone repo, build dengan cargo, join entrypoint testnet.'},
+      {title: 'Interaksi On-chain', desc: 'Lakukan transfer, staking, swap, cancel order.'},
+      {title: 'Join Flames Leaderboard', desc: 'Aktif bertransaksi untuk naik ranking.'},
+      {title: 'Bug Report', desc: 'Lapor error/latensi di Discord/GitHub dengan bukti tx.'},
+      {title: 'Buat Konten Edukatif', desc: 'Thread/tutorial cara join Fogo testnet.'}
+    ];
+
+    const stepsEl = document.getElementById('steps');
+    let completed = Array(steps.length).fill(false);
+
+    steps.forEach((s, i) => {
+      const card = document.createElement('div');
+      card.className = 'bg-white rounded-xl shadow p-4';
+      card.innerHTML = `<h3 class="font-bold">${s.title}</h3><p class="text-sm mb-2">${s.desc}</p>
+        <label class="flex items-center gap-2 text-sm"><input type="checkbox" data-step="${i}"/> Tandai selesai</label>`;
+      stepsEl.appendChild(card);
+    });
+
+    stepsEl.addEventListener('change', e => {
+      if(e.target.dataset.step !== undefined){
+        completed[e.target.dataset.step] = e.target.checked;
+        const percent = (completed.filter(Boolean).length/steps.length)*100;
+        document.getElementById('progress').style.width = percent+'%';
+      }
+    });
+
+    // Daily tasks
+    const dailyTasks = ['Claim faucet', '2-3 transaksi (transfer/swap/stake)', 'Simpan tx-hash/screenshot', 'Aktif Discord', 'Run node minimal 1 jam'];
+    const dailyTasksEl = document.getElementById('daily-tasks');
+    let dailyDone = Array(dailyTasks.length).fill(false);
+
+    dailyTasks.forEach((t,i)=>{
+      const li = document.createElement('li');
+      li.innerHTML = `<label class="flex items-center gap-2"><input type="checkbox" data-daily="${i}"/> ${t}</label>`;
+      dailyTasksEl.appendChild(li);
+    });
+
+    dailyTasksEl.addEventListener('change', e => {
+      if(e.target.dataset.daily !== undefined){
+        dailyDone[e.target.dataset.daily] = e.target.checked;
+        const percent = (dailyDone.filter(Boolean).length/dailyTasks.length)*100;
+        document.getElementById('daily-progress').style.width = percent+'%';
+        localStorage.setItem('dailyDone', JSON.stringify(dailyDone));
+      }
+    });
+
+    // Load daily state
+    if(localStorage.getItem('dailyDone')){
+      dailyDone = JSON.parse(localStorage.getItem('dailyDone'));
+      dailyDone.forEach((val,i)=>{
+        if(val) dailyTasksEl.querySelector(`[data-daily='${i}']`).checked = true;
+      });
+      document.getElementById('daily-progress').style.width = (dailyDone.filter(Boolean).length/dailyTasks.length)*100+'%';
+    }
+
+    // Notes autosave
+    const notes = document.getElementById('notes');
+    const saveMsg = document.getElementById('save-msg');
+    notes.value = localStorage.getItem('notes')||'';
+    notes.addEventListener('input', ()=>{
+      localStorage.setItem('notes', notes.value);
+      saveMsg.classList.remove('hidden');
+      setTimeout(()=> saveMsg.classList.add('hidden'),1000);
+    });
+    document.getElementById('clear-notes').addEventListener('click', ()=>{
+      notes.value=''; localStorage.removeItem('notes');
+    });
+
+    // Resources & Ecosystem
+    const resources = [
+      {name:'Website', url:'https://www.fogo.io'},
+      {name:'Docs', url:'https://docs.fogo.io'},
+      {name:'Discord', url:'https://discord.gg/fogo'},
+      {name:'Twitter/X', url:'https://x.com/fogochain'},
+      {name:'Faucet', url:'https://faucet.fogo.io'}
+    ];
+    const ecosystem = [
+      {name:'Explorer', url:'https://explorer.fogo.io'},
+      {name:'Pyron Lending', url:'https://app.pyron.fi'},
+      {name:'DEX Testnet', url:'#'}
+    ];
+
+    const resEl = document.getElementById('resources-list');
+    const ecoEl = document.getElementById('ecosystem-list');
+
+    resources.forEach(r=>{
+      const li=document.createElement('li');
+      li.innerHTML = `<a href="${r.url}" target="_blank" class="text-blue-600 hover:underline">${r.name}</a>`;
+      resEl.appendChild(li);
+    });
+    ecosystem.forEach(r=>{
+      const li=document.createElement('li');
+      li.innerHTML = `<a href="${r.url}" target="_blank" class="text-blue-600 hover:underline">${r.name}</a>`;
+      ecoEl.appendChild(li);
+    });
+  </script>
+</body>
+</html>
