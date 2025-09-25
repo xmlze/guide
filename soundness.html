@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Soundness Testnet Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Inter',sans-serif;background:#f8f7f4;color:#44403c}
+    .card{transition:transform .25s,box-shadow .25s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.05)}
+    .detail-box{max-height:0;overflow:hidden;opacity:0;transition:all .35s}
+    .detail-box.show{max-height:400px;opacity:1}
+    .progress-bar{height:10px;background:#e5e7eb;border-radius:9999px;overflow:hidden}
+    .progress{height:100%;background:linear-gradient(90deg,#f97316,#fb923c);width:0%}
+  </style>
+</head>
+<body class="antialiased">
+
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+    <div class="font-bold text-xl text-orange-600">Soundness Guide</div>
+    <nav class="space-x-4 text-sm hidden md:block">
+      <a href="#about">About</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#daily">Daily & Notes</a>
+      <a href="#resources">Resources</a>
+      <a href="#ecosystem">Ecosystem</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-8">
+  <!-- About -->
+  <section id="about" class="grid md:grid-cols-2 gap-6 mb-12">
+    <div class="card bg-white rounded-xl border p-6">
+      <h2 class="text-xl font-bold mb-2">Tentang Soundness</h2>
+      <p class="text-sm text-stone-600">Soundness adalah layer verifikasi terdesentralisasi (zk proofs + verifiability) yang terhubung ke ekosistem <b>Sui</b> & <b>Walrus</b>. Fase saat ini: <b>Testnet aktif</b> dengan game 8 Queens + CLI proof.</p>
+    </div>
+    <div class="card bg-white rounded-xl border p-6">
+      <h3 class="font-semibold mb-3">Detail</h3>
+      <dl class="text-sm space-y-1">
+        <div class="flex justify-between"><dt>Funding</dt><dd>- belum diumumkan</dd></div>
+        <div class="flex justify-between"><dt>Backers</dt><dd>- kolaborasi Sui, Walrus, Succinct (SP1)</dd></div>
+        <div class="flex justify-between"><dt>Status</dt><dd>Testnet aktif</dd></div>
+        <div class="flex justify-between"><dt>Tokenomics</dt><dd>- belum publik</dd></div>
+        <div class="flex justify-between"><dt>Mainnet ETA</dt><dd>- TBD</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section id="workflow" class="mb-12">
+    <h3 class="text-lg font-bold mb-4">Alur Kontribusi</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="steps"></div>
+    <div class="mt-4">
+      <div class="progress-bar"><div id="progress" class="progress"></div></div>
+      <p id="progress-status" class="text-xs text-stone-500 mt-1">0/0 langkah</p>
+    </div>
+  </section>
+
+  <!-- Daily + Notes -->
+  <section id="daily" class="grid md:grid-cols-2 gap-6 mb-12">
+    <div class="card bg-white rounded-xl border p-6">
+      <h4 class="font-semibold mb-2">Checklist Harian</h4>
+      <ul id="daily-tasks" class="space-y-2 text-sm"></ul>
+      <div class="mt-3">
+        <div class="progress-bar"><div id="daily-progress" class="progress"></div></div>
+        <p id="daily-status" class="text-xs text-stone-500 mt-1">0/0 tugas</p>
+      </div>
+    </div>
+    <div class="card bg-white rounded-xl border p-6 flex flex-col">
+      <h4 class="font-semibold mb-2">Catatan / Proof</h4>
+      <textarea id="notes" class="border rounded-lg p-2 text-sm flex-1" placeholder="Simpan proof ID, tx hash, screenshot link..."></textarea>
+      <button id="clear-notes" class="mt-2 px-3 py-1 border rounded text-sm">Clear</button>
+    </div>
+  </section>
+
+  <!-- Resources & Ecosystem -->
+  <section id="resources" class="grid md:grid-cols-2 gap-6 mb-12">
+    <div class="card bg-white rounded-xl border p-6">
+      <h4 class="font-semibold mb-3">Official Resources</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="https://soundness.xyz" target="_blank">🌐 Website</a></li>
+        <li><a href="https://soundness.xyz/blog" target="_blank">📰 Blog</a></li>
+        <li><a href="https://discord.gg/soundness" target="_blank">💬 Discord</a></li>
+        <li><a href="https://x.com/soundnesslabs" target="_blank">🐦 Twitter/X</a></li>
+        <li><a href="https://github.com/soundnesslabs" target="_blank">📂 GitHub</a></li>
+      </ul>
+    </div>
+    <div id="ecosystem" class="card bg-white rounded-xl border p-6">
+      <h4 class="font-semibold mb-3">Ecosystem Links</h4>
+      <p class="text-sm text-stone-500">Sui • Walrus • SP1 zkVM</p>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-stone-800 text-white text-center text-xs py-4">
+  Template netral — DYOR. Testnet hunting only.
+</footer>
+
+<script>
+  const steps=[
+    {title:"Join Discord",desc:"Masuk Discord & ambil role testnet",details:"<a href='https://discord.gg/soundness' target='_blank'>Join Discord</a>"},
+    {title:"Main 8 Queens",desc:"Mainkan puzzle game untuk generate proof",details:"<a href='https://soundness.xyz/blog/soundness-layer-testnet' target='_blank'>Panduan</a>"},
+    {title:"CLI Proof",desc:"Install Rust + jalankan CLI submit proof",details:"git clone repo & cargo run --release"},
+    {title:"Log & Share",desc:"Catat proof ID, share screenshot di X/Discord",details:"Simpan di CSV / Notion + screenshot leaderboard"},
+  ];
+
+  const daily=[
+    "Submit 1–2 proof (game/CLI)",
+    "Catat proof ID & screenshot",
+    "Cek leaderboard & dokumentasi",
+    "Aktif di Discord (jawab 1 pertanyaan)",
+    "Post 1 update di X/Discord (tag @soundnesslabs)",
+  ];
+
+  // Render workflow
+  const stepC=document.getElementById('steps');
+  steps.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.className='card bg-white border rounded-xl p-4';
+    card.innerHTML=`<h4 class='font-semibold mb-1'>${s.title}</h4><p class='text-xs mb-2'>${s.desc}</p>
+    <button class='text-orange-600 text-xs' onclick='toggleDetail(${i},this)'>Lihat Detail ▾</button>
+    <div id='d-${i}' class='detail-box text-xs mt-2'>${s.details||''}</div>
+    <label class='flex items-center mt-2 text-xs'><input type='checkbox' data-step='${i}' class='mr-2'> Tandai selesai</label>`;
+    stepC.appendChild(card);
+  });
+
+  function toggleDetail(i,btn){
+    const el=document.getElementById('d-'+i);
+    el.classList.toggle('show');
+    btn.textContent=el.classList.contains('show')?'Sembunyikan ▴':'Lihat Detail ▾';
+  }
+
+  function updateProgress(){
+    const boxes=document.querySelectorAll('[data-step]');
+    const done=[...boxes].filter(b=>b.checked).length;
+    const total=boxes.length;
+    const p=total?Math.round(done/total*100):0;
+    document.getElementById('progress').style.width=p+'%';
+    document.getElementById('progress-status').textContent=`${done}/${total} langkah (${p}%)`;
+    localStorage.setItem('soundness:steps',JSON.stringify([...boxes].map(b=>b.checked)));
+  }
+  document.querySelectorAll('[data-step]').forEach((b,i)=>{
+    b.addEventListener('change',updateProgress);
+  });
+
+  // Daily
+  const dC=document.getElementById('daily-tasks');
+  const savedD=JSON.parse(localStorage.getItem('soundness:daily')||'[]');
+  daily.forEach((t,i)=>{
+    const li=document.createElement('li');
+    const checked=savedD[i]?"checked":"";
+    li.innerHTML=`<label class='flex items-center'><input type='checkbox' data-daily='${i}' class='mr-2' ${checked}><span>${t}</span></label>`;
+    dC.appendChild(li);
+  });
+  function updateDaily(){
+    const boxes=document.querySelectorAll('[data-daily]');
+    const done=[...boxes].filter(b=>b.checked).length;
+    const total=boxes.length;
+    const p=total?Math.round(done/total*100):0;
+    document.getElementById('daily-progress').style.width=p+'%';
+    document.getElementById('daily-status').textContent=`${done}/${total} tugas (${p}%)`;
+    localStorage.setItem('soundness:daily',JSON.stringify([...boxes].map(b=>b.checked)));
+  }
+  document.querySelectorAll('[data-daily]').forEach(b=>b.addEventListener('change',updateDaily));
+  updateDaily();
+
+  // Notes
+  const notes=document.getElementById('notes');
+  notes.value=localStorage.getItem('soundness:notes')||'';
+  notes.addEventListener('input',()=>localStorage.setItem('soundness:notes',notes.value));
+  document.getElementById('clear-notes').addEventListener('click',()=>{notes.value='';localStorage.removeItem('soundness:notes')});
+
+</script>
+</body>
+</html>
