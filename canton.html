@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canton Network Early Role Guide</title>
+  <style>
+    body { font-family: Inter, sans-serif; background: #f8f7f4; color: #44403c; margin:0; padding:0; }
+    header { position: sticky; top:0; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); padding: 1rem; display: flex; justify-content: space-between; align-items: center; z-index:1000; }
+    header h1 { margin:0; font-size:1.5rem; }
+    nav a { margin-left:1rem; text-decoration:none; color:#44403c; }
+    section { padding: 2rem 1rem; max-width: 800px; margin: auto; }
+    .card { background: white; border: 1px solid #e5e5e5; border-radius: 0.75rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding:1.5rem; margin-bottom:1.5rem; }
+    .step-title { cursor: pointer; margin: 0.5rem 0; font-weight: 600; }
+    .step-detail { display: none; margin-top: 0.5rem; }
+    footer { background: #2d2d2d; color: #fff; padding:1.5rem; text-align: center; }
+    .progress { width: 100%; background: #e5e5e5; border-radius: 0.5rem; overflow: hidden; margin-top:1rem; }
+    .progress-bar { height: 8px; background: #4f46e5; width: 0; transition: width 0.3s; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Canton Early Role 📌</h1>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#daily">Daily Tasks</a>
+    <a href="#resources">Resources</a>
+  </nav>
+</header>
+
+<section id="about">
+  <div class="card">
+    <h2>About Canton Early Role Campaign</h2>
+    <p>
+      Campaign untuk mendapatkan role awal / pengakuan di komunitas Canton dengan cara membuat konten berkualitas tentang proyek di ekosistem Canton.
+    </p>
+    <ul>
+      <li>Sumber resmi: pengumuman Discord & Twitter Canton</li>
+      <li>Gunakan hashtag <strong>#CantonThreads</strong> di thread kamu</li>
+      <li>Submit link thread ke channel <code>#community-content</code> di Discord resmi</li>
+      <li>Deadline: 15 September 2025 (cek zona waktu mereka)</li>
+    </ul>
+  </div>
+</section>
+
+<section id="workflow">
+  <h2>Workflow / Alur Kontribusi</h2>
+  <div class="card">
+    <div>
+      <div class="step-title" onclick="toggleDetail(1)">1. Pilih proyek dari ekosistem Canton</div>
+      <div class="step-detail" id="detail-1">
+        Lihat daftar di <a href="https://www.canton.network/ecosystem" target="_blank">Canton Ecosystem</a> dan pilih satu yang kamu paham / tertarik.
+      </div>
+    </div>
+    <div>
+      <div class="step-title" onclick="toggleDetail(2)">2. Riset & draft konten thread</div>
+      <div class="step-detail" id="detail-2">
+        Kumpulkan data, integrasi teknis, perbandingan dengan pesaing, insight pribadi, risiko & peluang.
+      </div>
+    </div>
+    <div>
+      <div class="step-title" onclick="toggleDetail(3)">3. Publikasi thread di X / Twitter</div>
+      <div class="step-detail" id="detail-3">
+        Tambahkan hashtag <strong>#CantonThreads</strong>, mention @CantonNetwork bila perlu.
+      </div>
+    </div>
+    <div>
+      <div class="step-title" onclick="toggleDetail(4)">4. Submit link ke Discord</div>
+      <div class="step-detail" id="detail-4">
+        Kirim ke channel <code>#community-content</code> di Discord Canton, sertakan hashtag di pesan submit.
+      </div>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+</section>
+
+<section id="daily">
+  <h2>Checklist Harian</h2>
+  <div class="card">
+    <input type="checkbox" id="c1"> <label for="c1">Cek pengumuman baru di Discord</label><br>
+    <input type="checkbox" id="c2"> <label for="c2">Pantau channel #community-content</label><br>
+    <input type="checkbox" id="c3"> <label for="c3">Ide konten thread baru</label><br>
+    <input type="checkbox" id="c4"> <label for="c4">Cek performa thread & feedback</label><br>
+  </div>
+</section>
+
+<section id="resources">
+  <h2>Resources & Ecosystem</h2>
+  <div class="card">
+    <h3>Links Resmi</h3>
+    <ul>
+      <li><a href="https://www.canton.network" target="_blank">canton.network</a></li>
+      <li><a href="https://www.canton.network/ecosystem" target="_blank">Canton Ecosystem</a></li>
+      <li><a href="https://www.canton.network/news" target="_blank">News & Press</a></li>
+      <li><a href="https://www.canton.network/faq" target="_blank">FAQ & Docs</a></li>
+      <li><a href="https://x.com/CantonNetwork" target="_blank">X / Twitter Canton</a></li>
+    </ul>
+    <h3>Ecosystem Highlights</h3>
+    <ul>
+      <li>Circle (stablecoins, USDC) — bagian dari ekosistem tokenisasi di Canton</li>
+      <li>B2C2, DRW, GSR, FalconX — penyedia likuiditas & mitra collateral management :contentReference[oaicite:0]{index=0}</li>
+      <li>Chainlink — akan menjadi super validator & integrasi oracles (Data Streams, CCIP) :contentReference[oaicite:1]{index=1}</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>Template netral — DYOR (Do Your Own Research)</p>
+  <p>© 2025 Canton Early Role Guide</p>
+</footer>
+
+<script>
+  function toggleDetail(n) {
+    const el = document.getElementById('detail-'+n);
+    if (!el) return;
+    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    updateProgress();
+  }
+  function updateProgress() {
+    const details = [1,2,3,4].map(i => document.getElementById('detail-'+i).style.display === 'block');
+    const done = details.filter(x=>x).length;
+    const pct = (done / details.length) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  }
+</script>
+
+</body>
+</html>
