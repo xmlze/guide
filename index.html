@@ -5,47 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wiki Guide</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  color: #333;
+/* Reset */
+body, h1, ul, li {
   margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: #fafafa;
+  color: #1a1a1a;
   padding: 2rem;
 }
 h1 {
-  color: #2c3e50;
   text-align: center;
+  font-weight: 600;
+  font-size: 2rem;
   margin-bottom: 2rem;
+  color: #111;
 }
+
+/* Grid */
 #file-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
-}
-li {
   list-style: none;
+}
+
+/* Card flat style */
+li {
   background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
   padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, border-color 0.2s;
 }
 li:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #f0f0f0;
+  border-color: #d0d0d0;
 }
+
+/* Link style */
 a {
   text-decoration: none;
-  color: #2980b9;
-  font-weight: bold;
+  color: #0d6efd;
+  font-weight: 500;
   display: block;
   word-break: break-word;
 }
 a:hover {
-  color: #1abc9c;
+  color: #0a58ca;
 }
 </style>
 </head>
