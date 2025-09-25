@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Talus Testnet Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Inter',sans-serif;background:#f8f7f4;color:#44403c}
+    .card{transition:transform .28s,box-shadow .28s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.06)}
+    .detail-box{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .3s}
+    .detail-box.show{max-height:420px;opacity:1}
+    .progress-bar{height:10px;border-radius:999px;background:#e6e7ea;overflow:hidden}
+    .progress{height:100%;width:0%;background:linear-gradient(90deg,#f97316,#fb923c);transition:width .5s}
+  </style>
+</head>
+<body>
+<header class="sticky top-0 bg-white/80 backdrop-blur border-b z-50">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="text-xl font-bold text-orange-600">Talus Testnet Guide</div>
+    <nav class="space-x-6 text-sm hidden md:flex">
+      <a href="#about" class="hover:text-orange-600">About</a>
+      <a href="#workflow" class="hover:text-orange-600">Workflow</a>
+      <a href="#daily" class="hover:text-orange-600">Daily & Notes</a>
+      <a href="#resources" class="hover:text-orange-600">Resources</a>
+      <a href="#ecosystem" class="hover:text-orange-600">Ecosystem</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-10">
+  <!-- About -->
+  <section id="about" class="mb-12 grid md:grid-cols-2 gap-6">
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h2 class="text-2xl font-bold mb-3">Tentang Talus</h2>
+      <p class="text-stone-600">Talus adalah blockchain Layer-1 berbasis MoveVM, fokus ke <strong>AI agents on-chain</strong>. Misi: jadi infrastruktur di mana developer bisa deploy autonomous agent & user bisa "earn while you sleep".</p>
+    </div>
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h3 class="font-semibold mb-3">Detail Proyek</h3>
+      <dl class="text-sm space-y-2">
+        <div class="flex justify-between"><dt>Funding</dt><dd>$9M (Polychain, Animoca, dao5)</dd></div>
+        <div class="flex justify-between"><dt>Backers</dt><dd>Polychain Capital, Animoca, Hash3</dd></div>
+        <div class="flex justify-between"><dt>Status</dt><dd>Testnet aktif (Season 1)</dd></div>
+        <div class="flex justify-between"><dt>Tokenomics</dt><dd>Belum publik penuh</dd></div>
+        <div class="flex justify-between"><dt>Mainnet ETA</dt><dd>2025 (perkiraan)</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section id="workflow" class="mb-12">
+    <h3 class="text-xl font-bold mb-4">Alur Kontribusi</h3>
+    <div id="workflow-steps" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    <div class="mt-4">
+      <div class="progress-bar"><div id="workflow-progress" class="progress"></div></div>
+      <p id="workflow-status" class="text-sm mt-1">[0/0 steps]</p>
+    </div>
+  </section>
+
+  <!-- Daily + Notes -->
+  <section id="daily" class="mb-12 grid md:grid-cols-2 gap-6">
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h4 class="font-semibold mb-3">Checklist Harian</h4>
+      <ul id="daily-tasks" class="space-y-2 text-sm"></ul>
+      <div class="mt-3">
+        <div class="progress-bar"><div id="daily-progress" class="progress"></div></div>
+        <p id="daily-status" class="text-sm mt-1">[0/0 tugas]</p>
+      </div>
+    </div>
+    <div class="card bg-white p-6 rounded-2xl border">
+      <h4 class="font-semibold mb-3">Catatan / Proof</h4>
+      <textarea id="notes-box" class="w-full border rounded-md p-2" placeholder="Simpan tx hash, bukti quest..."></textarea>
+      <button id="clear-notes" class="mt-2 text-sm px-3 py-1 border rounded-md">Clear</button>
+    </div>
+  </section>
+
+  <!-- Resources -->
+  <section id="resources" class="mb-12">
+    <h4 class="text-lg font-semibold mb-4">Official Resources</h4>
+    <div id="resources-grid" class="grid sm:grid-cols-2 gap-4"></div>
+  </section>
+
+  <!-- Ecosystem -->
+  <section id="ecosystem" class="mb-16">
+    <h4 class="text-lg font-semibold mb-4">Ecosystem Links</h4>
+    <div id="ecosystem-grid" class="grid sm:grid-cols-2 gap-4"></div>
+  </section>
+</main>
+
+<footer class="bg-stone-800 text-white text-center py-6 text-sm">
+  Disclaimer: Template edukatif — DYOR sebelum kontribusi.
+</footer>
+
+<script>
+  const steps=[
+    {title:'Hub Talus',desc:'Connect wallet di hub.talus.network',details:'Gunakan wallet EVM (Metamask).',links:[{label:'Hub',url:'https://hub.talus.network'}]},
+    {title:'Starter Quests',desc:'Selesaikan misi awal di Loyalty Hub',details:'Daily missions & starter quests → bukti screenshot',links:[{label:'Quest Guide',url:'https://medium.com/@talus_network/talus-testnet-steps-proofs-and-points-guide-1a0361054a69'}]},
+    {title:'Daily Check-in',desc:'Login & check-in setiap hari',details:'Tandai kehadiran → jaga konsistensi snapshot'},
+    {title:'On-chain Action',desc:'Lakukan interaksi kontrak / agent',details:'Contoh: submit Idol Agent contest entry, staking, dsb'}
+  ];
+  const dailyTasks=['Check-in di Hub','1 aksi meaningful (on-chain atau content)','Update Evidence Log'];
+  const resources=[
+    {name:'Website',url:'https://talus.network',icon:'🌐'},
+    {name:'Testnet Hub',url:'https://hub.talus.network',icon:'🛠️'},
+    {name:'Docs',url:'https://docs.talus.network',icon:'📖'},
+    {name:'Discord',url:'https://discord.gg/talus',icon:'💬'},
+    {name:'Twitter',url:'https://twitter.com/talus_network',icon:'🐦'}
+  ];
+  const ecosystem=[
+    {name:'Sui',url:'https://sui.io',icon:'⚡'},
+    {name:'Walrus',url:'https://walrus.site',icon:'🪣'},
+    {name:'Exponent',url:'https://exponent.ai',icon:'🤖'}
+  ];
+
+  // Populate workflow
+  const stepC=document.getElementById('workflow-steps');
+  steps.forEach((s,i)=>{
+    const card=document.createElement('div');card.className='card bg-white p-5 rounded-xl border';
+    let linksHtml='';
+    if(s.links){linksHtml='<div class="mt-2 flex flex-wrap gap-2">'+s.links.map(L=>`<a class='text-orange-600 underline text-sm' target='_blank' href='${L.url}'>${L.label}</a>`).join('')+'</div>'}
+    card.innerHTML=`<h4 class='font-semibold mb-1'>${s.title}</h4><p class='text-sm'>${s.desc}</p><button onclick='toggleDetail(${i},this)' class='text-orange-600 text-sm mt-2'>Lihat Detail ▾</button><div id='detail-${i}' class='detail-box text-sm mt-2'>${s.details||''}${linksHtml}</div><label class='flex items-center mt-3 text-sm'><input type='checkbox' data-step='${i}' class='mr-2'> Tandai selesai</label>`;
+    stepC.appendChild(card);
+  });
+
+  // Daily tasks
+  const dC=document.getElementById('daily-tasks');
+  dailyTasks.forEach((t,i)=>{const li=document.createElement('li');li.innerHTML=`<label class='flex items-center'><input type='checkbox' data-daily='${i}' class='mr-2'>${t}</label>`;dC.appendChild(li)});
+
+  // Resources
+  const rC=document.getElementById('resources-grid');
+  resources.forEach(r=>{const a=document.createElement('a');a.href=r.url;a.target='_blank';a.className='card bg-white p-4 rounded-xl border flex items-center gap-3';a.innerHTML=`<div class='text-2xl'>${r.icon}</div><div><strong>${r.name}</strong></div>`;rC.appendChild(a)});
+
+  // Ecosystem
+  const eC=document.getElementById('ecosystem-grid');
+  ecosystem.forEach(e=>{const a=document.createElement('a');a.href=e.url;a.target='_blank';a.className='card bg-white p-4 rounded-xl border flex items-center gap-3';a.innerHTML=`<div class='text-2xl'>${e.icon}</div><div><strong>${e.name}</strong></div>`;eC.appendChild(a)});
+
+  function toggleDetail(i,btn){const el=document.getElementById('detail-'+i);el.classList.toggle('show');btn.textContent=el.classList.contains('show')?'Sembunyikan ▴':'Lihat Detail ▾'}
+
+</script>
+</body>
+</html>
