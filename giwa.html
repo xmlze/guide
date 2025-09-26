@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GIWA Testnet — Onepage Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#f97316;--muted:#9ca3af;--bg:#f8f7f4}
+    html,body{height:100%}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:#44403c;margin:0;-webkit-font-smoothing:antialiased}
+    .card{transition:transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s;will-change:transform}
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(16,24,40,.08)}
+    .detail-box{max-height:0;opacity:0;overflow:hidden;transform:translateY(-6px);transition:max-height .42s cubic-bezier(.2,.9,.2,1),opacity .32s,transform .32s}
+    .detail-box.show{max-height:420px;opacity:1;transform:translateY(0)}
+    .progress-bar{height:12px;border-radius:999px;background:#e6e7ea;overflow:hidden}
+    .progress{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#fb923c);transition:width .6s cubic-bezier(.2,.9,.2,1)}
+    #saved-msg{position:fixed;right:20px;bottom:22px;background:#fff;border-radius:9px;padding:.55rem .9rem;border:1px solid #eee;box-shadow:0 8px 24px rgba(16,24,40,.08);opacity:0;transform:translateY(8px);transition:all .36s}
+    #saved-msg.show{opacity:1;transform:translateY(0)}
+    @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b">
+  <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-gradient-to-br from-orange-200 to-orange-400 rounded-xl flex items-center justify-center font-bold text-white">G</div>
+      <div>
+        <div class="text-lg font-bold text-orange-600">GIWA Testnet Guide</div>
+        <div class="text-xs text-stone-500">Onepage template — otomatis autosave</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-4 items-center text-sm">
+      <a href="#about" class="hover:underline">About</a>
+      <a href="#workflow" class="hover:underline">Workflow</a>
+      <a href="#daily" class="hover:underline">Daily & Notes</a>
+      <a href="#resources" class="hover:underline">Resources</a>
+      <a href="#ecosystem" class="hover:underline">Ecosystem</a>
+    </nav>
+    <button id="mobile-toggle" class="md:hidden p-2 rounded-lg border bg-white">☰</button>
+  </div>
+  <div id="mobile-drawer" class="md:hidden bg-white/95 border-t hidden">
+    <div class="px-4 py-3 flex flex-col gap-2">
+      <a href="#about" class="py-2">About</a>
+      <a href="#workflow" class="py-2">Workflow</a>
+      <a href="#daily" class="py-2">Daily & Notes</a>
+      <a href="#resources" class="py-2">Resources</a>
+      <a href="#ecosystem" class="py-2">Ecosystem</a>
+    </div>
+  </div>
+</header>
+
+<main class="container mx-auto px-6 py-10">
+  <!-- About -->
+  <section id="about" class="mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h2 class="text-2xl font-bold mb-2">GIWA — ringkasan cepat</h2>
+        <p class="text-sm text-stone-600">GIWA adalah Ethereum Layer‑2 berbasis OP Stack, dibangun & dioperasikan oleh Dunamu / Upbit. Tujuan: transaksi cepat, biaya rendah, dan adopsi developer Korea/global. Gunakan halaman ini untuk track kontribusi testnet, bukti (tx), dan checklist harian.</p>
+        <div class="mt-4 text-xs text-stone-500">Catatan: Tokenomics belum diumumkan; simpan bukti kontribusi.</div>
+      </div>
+
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h3 class="text-lg font-semibold mb-3">Detail singkat</h3>
+        <dl class="grid grid-cols-1 gap-3 text-sm text-stone-600">
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Funding</dt><dd id="detail-funding">Dunamu / Upbit</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Backers</dt><dd id="detail-backers">Dunamu (official)</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Status</dt><dd id="detail-status">Testnet aktif (Sep 2025)</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Tokenomics</dt><dd id="detail-tokenomics">Belum diumumkan</dd></div>
+          <div class="flex justify-between"><dt class="font-medium text-stone-700">Mainnet ETA</dt><dd id="detail-mainnet">TBD</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section id="workflow" class="mb-8">
+    <h3 class="text-xl font-bold mb-4">Workflow — langkah kontribusi</h3>
+    <div id="workflow-steps" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    <div class="mt-5">
+      <div class="progress-bar"><div id="workflow-progress" class="progress"></div></div>
+      <p id="workflow-status" class="text-sm text-stone-500 mt-2">[0/0 steps]</p>
+    </div>
+  </section>
+
+  <!-- Daily & Notes -->
+  <section id="daily" class="mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card bg-white p-6 rounded-2xl border">
+        <h4 class="text-lg font-semibold mb-3">Checklist Harian</h4>
+        <ul id="daily-tasks" class="space-y-3 text-sm text-stone-600"></ul>
+        <div class="mt-4">
+          <div class="progress-bar"><div id="daily-progress" class="progress"></div></div>
+          <p id="daily-status" class="text-sm text-stone-500 mt-2">[0/0 tugas]</p>
+        </div>
+      </div>
+
+      <div class="card bg-white p-6 rounded-2xl border flex flex-col">
+        <h4 class="text-lg font-semibold mb-3">Catatan & Proof</h4>
+        <textarea id="notes-box" placeholder="Simpan tx hash, link report, atau catatan... (auto-save)"></textarea>
+        <div class="mt-3 flex items-center justify-between">
+          <small class="text-xs text-stone-500">Auto-save ke browser</small>
+          <div class="flex gap-2">
+            <button id="clear-notes" class="text-sm px-3 py-1 border rounded-md">Clear</button>
+            <button id="export-md" class="text-sm px-3 py-1 border rounded-md">Export MD</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources & Ecosystem -->
+  <section id="resources" class="mb-8">
+    <h4 class="text-lg font-semibold mb-4">Resources & Official Links</h4>
+    <div id="resources-grid" class="grid sm:grid-cols-2 gap-4"></div>
+  </section>
+
+  <section id="ecosystem" class="mb-16">
+    <h4 class="text-lg font-semibold mb-4">Ecosystem / Partners</h4>
+    <div id="ecosystem-grid" class="grid sm:grid-cols-2 gap-4"></div>
+  </section>
+</main>
+
+<footer class="bg-stone-800 text-white py-6 text-center">
+  <p class="text-sm">Disclaimer: Template edukatif — DYOR. Simpan bukti kontribusi (tx hash, screenshot, repo).</p>
+</footer>
+
+<div id="saved-msg">Tersimpan ✅</div>
+
+<script>
+// ------------------ Configuration (edit if perlu) ------------------
+const PROJECT_KEY = 'GIWA_TESTNET_GUIDE_v1';
+const PROJECT = {
+  title: 'GIWA Testnet',
+  short: 'Ethereum L2 (OP Stack) by Dunamu / Upbit. Fokus: low gas, fast blocks, dev tooling. Tokenomics: belum diumumkan.',
+  funding: 'Dunamu / Upbit',
+  backers: 'Dunamu (official)',
+  status: 'Testnet aktif (Sep 2025)',
+  tokenomics: 'Belum diumumkan',
+  mainnet: 'TBD'
+};
+
+const steps = [
+  {title:'Tambah RPC & Wallet', desc:'Tambahkan RPC GIWA testnet ke MetaMask / GIWA Wallet', details:'RPC: https://sepolia-rpc.giwa.io \nChain ID: per docs (cek docs.giwa.io)', links:[{label:'Docs — Try GIWA', url:'https://docs.giwa.io/try-giwa'}]},
+  {title:'Claim Faucet', desc:'Klaim tETH dari faucet resmi untuk biaya gas', details:'Faucet biasanya ada di https://faucet.giwa.io atau repo GitHub faucet', links:[{label:'Faucet Repo', url:'https://github.com/giwa-io/faucet'}]},
+  {title:'Gunakan Bridge', desc:'Lakukan deposit & withdraw kecil lewat bridge Sepolia↔GIWA', details:'Catat tx hash, waktu konfirmasi, dan fees', links:[{label:'Bridge Demo', url:'https://bridge.giwa.io/'}]},
+  {title:'Deploy kontrak (ERC20/NFT)', desc:'Deploy kontrak sederhana untuk bukti aktivitas', details:'Gunakan Remix/Hardhat + OpenZeppelin. Simpan address kontrak & tx hash', links:[]},
+  {title:'Mint & Transfer', desc:'Mint NFT / token & transfer ke wallet lain', details:'Proof: tx hash + screenshot explorer', links:[]},
+  {title:'Bug hunting & Issue', desc:'Uji edge-case: RPC rate limits, bridge failures', details:'Laporkan ke GitHub issues / Discord dengan template singkat', links:[{label:'GIWA GitHub', url:'https://github.com/giwa-io'}]},
+  {title:'Run node / infra', desc:'Jalankan node atau bantu infra (PR, docs)', details:'Repo: giwa-io/node → ikuti petunjuk sync', links:[{label:'Node Guide (docs)', url:'https://docs.giwa.io/node/get-started'}]}
+];
+
+const dailyTasks = [
+  'Cek balance tETH & klaim jika perlu',
+  'Bridge kecil (test deposit/withdraw)',
+  'Selesaikan 1 deploy / tx test',
+  'Cek GitHub issues; coba reproduce bug',
+  'Buat 1 proof (screenshot + tx hash) dan simpan'
+];
+
+const resources = [
+  {name:'Docs GIWA', url:'https://docs.giwa.io', icon:'📘'},
+  {name:'GIWA GitHub', url:'https://github.com/giwa-io', icon:'💻'},
+  {name:'Bridge (demo)', url:'https://bridge.giwa.io', icon:'🌉'},
+  {name:'Faucet (repo)', url:'https://github.com/giwa-io/faucet', icon:'🚰'}
+];
+
+const ecosystem = [
+  {name:'Dunamu / Upbit', url:'https://www.upbit.com', icon:'🏦'},
+  {name:'Sepolia (testnet)', url:'https://sepolia.etherscan.io', icon:'🧪'}
+];
+// ------------------ end config ------------------
+
+// helpers
+function safeText(el, txt){ if(!el) return; el.textContent = txt }
+
+// populate about/details
+safeText(document.querySelector('#about p'), PROJECT.short);
+safeText(document.getElementById('detail-funding'), PROJECT.funding);
+safeText(document.getElementById('detail-backers'), PROJECT.backers);
+safeText(document.getElementById('detail-status'), PROJECT.status);
+safeText(document.getElementById('detail-tokenomics'), PROJECT.tokenomics);
+safeText(document.getElementById('detail-mainnet'), PROJECT.mainnet);
+
+// workflow
+const stepContainer = document.getElementById('workflow-steps');
+steps.forEach((s,i)=>{
+  const card = document.createElement('div');
+  card.className = 'card bg-white p-5 rounded-xl border reserve-min';
+  let linksHtml = '';
+  if(Array.isArray(s.links) && s.links.length){ linksHtml = '<div class="mt-3 flex flex-wrap gap-2">'; s.links.forEach((L)=>{ linksHtml += `<a class="link-btn" href="${L.url}" target="_blank" rel="noopener noreferrer">${L.label}</a>` }); linksHtml += '</div>'; }
+  card.innerHTML = `
+    <h4 class="font-semibold mb-1">${s.title}</h4>
+    <p class="text-sm text-stone-600">${s.desc || ''}</p>
+    <div class="mt-3">
+      <button class="text-orange-600 text-sm" onclick="toggleDetail(${i}, this)">Lihat Detail ▾</button>
+    </div>
+    <div id="detail-${i}" class="detail-box mt-3 text-sm text-stone-500">${(s.details||'')}${linksHtml}</div>
+    <label class="flex items-center mt-4 text-sm"><input type="checkbox" data-step="${i}" class="mr-2"> Tandai selesai</label>
+  `;
+  stepContainer.appendChild(card);
+});
+
+// resources
+const rgrid = document.getElementById('resources-grid');
+resources.forEach(r=>{
+  const a = document.createElement('a'); a.href = r.url; a.target='_blank'; a.className='bg-white p-4 rounded-xl border flex items-center gap-3 hover:shadow transform transition hover:-translate-y-1'; a.innerHTML = `<div class='text-2xl'>${r.icon}</div><div><strong>${r.name}</strong><div class='text-xs text-stone-500'>Official</div></div>`; rgrid.appendChild(a);
+});
+
+// ecosystem
+const egrid = document.getElementById('ecosystem-grid');
+ecosystem.forEach(e=>{
+  const a = document.createElement('a'); a.href=e.url; a.target='_blank'; a.className='bg-white p-4 rounded-xl border flex items-center gap-3 hover:shadow transform transition hover:-translate-y-1'; a.innerHTML = `<div class='text-2xl'>${e.icon}</div><div><strong>${e.name}</strong><div class='text-xs text-stone-500'>Partner</div></div>`; egrid.appendChild(a);
+});
+
+// interactions & storage
+function toggleDetail(i, btn){ const el = document.getElementById('detail-'+i); if(!el) return; el.classList.toggle('show'); btn.textContent = el.classList.contains('show') ? 'Sembunyikan Detail ▴' : 'Lihat Detail ▾'; }
+
+function updateWorkflowProgress(){ const boxes = document.querySelectorAll('#workflow-steps input[type=checkbox]'); const done = Array.from(boxes).filter(c=>c.checked).length; const total = boxes.length || 0; const p = total===0 ? 0 : Math.round(done/total*100); requestAnimationFrame(()=>{ document.getElementById('workflow-progress').style.width = p + '%'; }); document.getElementById('workflow-status').textContent = `${done}/${total} steps selesai (${p}%)`; localStorage.setItem(PROJECT_KEY+':workflow', JSON.stringify(Array.from(boxes).map(c=>c.checked))); }
+
+function updateDailyProgress(){ const checks = document.querySelectorAll('#daily-tasks input'); checks.forEach((c)=>{ if(c.checked) c.nextElementSibling.classList.add('done'); else c.nextElementSibling.classList.remove('done'); }); const done = Array.from(checks).filter(c=>c.checked).length; const total = checks.length || 0; const p = total===0 ? 0 : Math.round(done/total*100); requestAnimationFrame(()=>{ document.getElementById('daily-progress').style.width = p + '%'; }); document.getElementById('daily-status').textContent = `${done}/${total} tugas selesai (${p}%)`; localStorage.setItem(PROJECT_KEY+':daily', JSON.stringify(Array.from(checks).map(c=>c.checked))); }
+
+function showSavedMsg(msg){ const el = document.getElementById('saved-msg'); el.textContent = msg || 'Tersimpan ✅'; el.classList.add('show'); clearTimeout(window._savedTimer); window._savedTimer = setTimeout(()=>el.classList.remove('show'),1200); }
+
+window.addEventListener('load', ()=>{
+  // workflow state
+  const savedW = JSON.parse(localStorage.getItem(PROJECT_KEY+':workflow') || '[]');
+  const boxes = document.querySelectorAll('#workflow-steps input[type=checkbox]');
+  boxes.forEach((b,i)=>{ if(savedW[i]) b.checked = true; b.addEventListener('change', updateWorkflowProgress); });
+  updateWorkflowProgress();
+
+  // daily
+  const savedD = JSON.parse(localStorage.getItem(PROJECT_KEY+':daily') || '[]');
+  const dailyContainer = document.getElementById('daily-tasks');
+  dailyTasks.forEach((t,i)=>{ const li = document.createElement('li'); const checked = savedD[i] ? 'checked' : ''; li.innerHTML = `<label class="flex items-center"><input type="checkbox" data-daily="${i}" class="mr-3" ${checked}><span class="text-sm">${t}</span></label>`; dailyContainer.appendChild(li); });
+  const dailyChecks = document.querySelectorAll('#daily-tasks input'); dailyChecks.forEach((c,i)=>{ c.addEventListener('change', updateDailyProgress); if(savedD[i]) c.nextElementSibling.classList.add('done'); });
+  updateDailyProgress();
+
+  // notes
+  const notesBox = document.getElementById('notes-box'); notesBox.value = localStorage.getItem(PROJECT_KEY+':notes') || ''; let saveTimer; notesBox.addEventListener('input', ()=>{ clearTimeout(saveTimer); saveTimer = setTimeout(()=>{ localStorage.setItem(PROJECT_KEY+':notes', notesBox.value); showSavedMsg(); }, 250); });
+  document.getElementById('clear-notes').addEventListener('click', ()=>{ notesBox.value=''; localStorage.removeItem(PROJECT_KEY+':notes'); showSavedMsg('Dikosongkan'); });
+  document.getElementById('export-md').addEventListener('click', ()=>{ const md = exportMarkdown(); const blob = new Blob([md], {type:'text/markdown'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download='giwa-proof.md'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); showSavedMsg('Exported MD'); });
+
+  // mobile drawer
+  document.getElementById('mobile-toggle').addEventListener('click', ()=>{ const d=document.getElementById('mobile-drawer'); d.classList.toggle('hidden'); });
+});
+
+// export
+function exportMarkdown(){ const notes = localStorage.getItem(PROJECT_KEY+':notes') || ''; const workflow = JSON.parse(localStorage.getItem(PROJECT_KEY+':workflow') || '[]'); const daily = JSON.parse(localStorage.getItem(PROJECT_KEY+':daily') || '[]'); let md = `# GIWA Testnet Proofs\n\n`; md += `## Notes\n${notes}\n\n`; md += `## Workflow\n`; steps.forEach((s,i)=>{ md += `- [${workflow[i]? 'x': ' '}] ${s.title}\n`; }); md += `\n## Daily\n`; dailyTasks.forEach((t,i)=>{ md += `- [${daily[i]? 'x': ' '}] ${t}\n`; }); md += `\n## Resources\n`; resources.forEach(r=>{ md += `- ${r.name}: ${r.url}\n`; }); return md; }
+
+// scroll smooth
+document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click', (e)=>{ e.preventDefault(); const id = a.getAttribute('href').slice(1); const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); document.getElementById('mobile-drawer').classList.add('hidden'); }); });
+
+// expose dailyTasks to script scope
+window.dailyTasks = "REPLACE";
+</script>
+
+<script>
+// inject dailyTasks array (workaround to keep template editable)
+(function(){ const s = document.createElement('script'); s.innerHTML = `window.dailyTasks = ${JSON.stringify("REPLACE")};`; document.body.appendChild(s); })();
+</script>
+
+<script>
+// replace placeholder dailyTasks in runtime (small hack)
+(function(){ try{ const arr = "REPLACE_ARRAY"; }catch(e){} })();
+</script>
+
+</body>
+</html>
