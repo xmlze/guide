@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nitrograph Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f7f4; color: #44403c; }
+        .sticky-navbar { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px); background-color: rgba(248, 247, 244, 0.8); }
+        .card { background-color: white; border-radius: 1.25rem; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .hover-effect { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .hover-effect:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .expand-collapse { transition: max-height 0.3s ease; overflow: hidden; }
+        .progress-bar { transition: width 0.3s ease; }
+        .saved-notification { position: fixed; bottom: 20px; right: 20px; background-color: #10b981; color: white; padding: 8px 16px; border-radius: 4px; display: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="sticky-navbar py-4 px-6 flex justify-between items-center border-b border-gray-200">
+        <div class="text-xl font-bold">Nitrograph Guide</div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="#about" class="hover:text-gray-900">About</a>
+            <a href="#workflow" class="hover:text-gray-900">Workflow</a>
+            <a href="#daily" class="hover:text-gray-900">Daily & Notes</a>
+            <a href="#resources" class="hover:text-gray-900">Resources</a>
+            <a href="#ecosystem" class="hover:text-gray-900">Ecosystem</a>
+        </nav>
+        <div class="md:hidden">
+            <button id="menu-toggle" class="focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+            <div id="mobile-menu" class="hidden absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-4 space-y-2">
+                <a href="#about" class="block">About</a>
+                <a href="#workflow" class="block">Workflow</a>
+                <a href="#daily" class="block">Daily & Notes</a>
+                <a href="#resources" class="block">Resources</a>
+                <a href="#ecosystem" class="block">Ecosystem</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section About -->
+    <section id="about" class="py-12 px-6">
+        <h2 class="text-2xl font-bold mb-6 text-center">About</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">Ringkasan Proyek</h3>
+                <p>Nitrograph adalah Layer-1 blockchain khusus untuk AI agents otonom, memungkinkan mereka discover, negotiate, dan transact cepat & murah. Analoginya: seperti jalan tol untuk robot AI yang bekerja mandiri di ekonomi digital.</p>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">Details</h3>
+                <ul class="space-y-2">
+                    <li><strong>Funding:</strong> Rumor $5M dari Google (belum confirmed).</li>
+                    <li><strong>Backers:</strong> Google (rumor).</li>
+                    <li><strong>Status:</strong> Testnet Beta.</li>
+                    <li><strong>Tokenomics:</strong> 25% alokasi untuk community (airdrop).</li>
+                    <li><strong>Mainnet ETA:</strong> 2026.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-gray-200">
+
+    <!-- Section Workflow -->
+    <section id="workflow" class="py-12 px-6">
+        <h2 class="text-2xl font-bold mb-6 text-center">Workflow — Langkah Kontribusi</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Steps as cards -->
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">1. Connect Wallet</h3>
+                <p>Masuk ke situs community dan hubungkan wallet testnet.</p>
+                <button class="toggle-detail text-blue-600">Detail</button>
+                <div class="expand-collapse max-h-0">
+                    <ul class="mt-2 space-y-1">
+                        <li><input type="checkbox" class="step-check"> Kunjungi https://community.nitrograph.com/</li>
+                        <li><input type="checkbox" class="step-check"> Hubungkan wallet (EVM-compatible).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">2. Masuk Referral Code</h3>
+                <p>Gunakan code untuk join, contoh: V7NOD37F.</p>
+                <button class="toggle-detail text-blue-600">Detail</button>
+                <div class="expand-collapse max-h-0">
+                    <ul class="mt-2 space-y-1">
+                        <li><input type="checkbox" class="step-check"> Input code di dashboard.</li>
+                        <li><input type="checkbox" class="step-check"> Verifikasi.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">3. Request Test Tokens</h3>
+                <p>Ambil tokens dari faucet untuk test.</p>
+                <button class="toggle-detail text-blue-600">Detail</button>
+                <div class="expand-collapse max-h-0">
+                    <ul class="mt-2 space-y-1">
+                        <li><input type="checkbox" class="step-check"> Kunjungi https://faucet-testnet.nitrograph.foundation/</li>
+                        <li><input type="checkbox" class="step-check"> Claim tokens.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">4. Claim Daily $NITRO</h3>
+                <p>Claim harian untuk poin airdrop.</p>
+                <button class="toggle-detail text-blue-600">Detail</button>
+                <div class="expand-collapse max-h-0">
+                    <ul class="mt-2 space-y-1">
+                        <li><input type="checkbox" class="step-check"> Login daily.</li>
+                        <li><input type="checkbox" class="step-check"> Klik claim.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">5. Complete Missions</h3>
+                <p>Selesaikan tugas seperti deploy swarm.</p>
+                <button class="toggle-detail text-blue-600">Detail</button>
+                <div class="expand-collapse max-h-0">
+                    <ul class="mt-2 space-y-1">
+                        <li><input type="checkbox" class="step-check"> Cek missions di dashboard.</li>
+                        <li><input type="checkbox" class="step-check"> Submit proof.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">6. Invite Friends</h3>
+                <p>Bagikan code untuk extra poin.</p>
+                <button class="toggle-detail text-blue-600">Detail</button>
+                <div class="expand-collapse max-h-0">
+                    <ul class="mt-2 space-y-1">
+                        <li><input type="checkbox" class="step-check"> Generate referral.</li>
+                        <li><input type="checkbox" class="step-check"> Share ke teman.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="mt-6 text-center">
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div id="workflow-progress" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+            <p id="workflow-count" class="mt-2">[0/12 steps]</p>
+        </div>
+    </section>
+
+    <hr class="border-gray-200">
+
+    <!-- Section Daily Checklist + Notes -->
+    <section id="daily" class="py-12 px-6">
+        <h2 class="text-2xl font-bold mb-6 text-center">Daily Checklist + Notes</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">Checklist Harian</h3>
+                <ul class="space-y-2">
+                    <li><input type="checkbox" class="daily-check"> Claim daily $NITRO</li>
+                    <li><input type="checkbox" class="daily-check"> Cek missions baru</li>
+                    <li><input type="checkbox" class="daily-check"> Deploy/test swarm</li>
+                    <li><input type="checkbox" class="daily-check"> Invite 1 teman</li>
+                </ul>
+                <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="daily-progress" class="bg-green-600 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+                <p id="daily-count" class="mt-2">[0/4 tugas]</p>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">Catatan / Proof</h3>
+                <textarea id="notes" class="w-full h-32 border rounded p-2" placeholder="Catat tx hash, screenshots, dll."></textarea>
+                <p class="text-sm text-gray-500 mt-1">Auto-save ke browser</p>
+                <button id="clear-notes" class="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Clear</button>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-gray-200">
+
+    <!-- Section Resources & Ecosystem -->
+    <section id="resources" class="py-12 px-6">
+        <h2 class="text-2xl font-bold mb-6 text-center">Resources & Ecosystem</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">Official Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="https://nitrograph.com/" class="text-blue-600 hover:underline">Website</a></li>
+                    <li><a href="https://docs.nitrograph.com/" class="text-blue-600 hover:underline">Docs</a></li>
+                    <li><a href="https://community.nitrograph.com/" class="text-blue-600 hover:underline">Community Dashboard</a></li>
+                    <li><a href="https://x.com/nitrograph" class="text-blue-600 hover:underline">Twitter/X (@Nitrograph)</a></li>
+                    <li><a href="https://faucet-testnet.nitrograph.foundation/" class="text-blue-600 hover:underline">Faucet</a></li>
+                </ul>
+            </div>
+            <div class="card p-6 hover-effect">
+                <h3 class="font-semibold mb-2">Ecosystem Links</h3>
+                <p>Partner / tooling / explorer (placeholder netral)</p>
+                <ul class="space-y-2">
+                    <li>EVM-compatible tools</li>
+                    <li>AI Agent explorers (coming soon)</li>
+                    <li>DEX/Oracle integration (early stage)</li>
+                    <li>Wallet support: MetaMask, etc.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 px-6 text-center">
+        <p>Disclaimer: Template netral — isi sesuai kebutuhan proyek. DYOR.</p>
+        <div class="mt-2 space-x-4">
+            <a href="https://x.com/nitrograph" class="hover:underline">Twitter</a>
+        </div>
+    </footer>
+
+    <!-- Saved Notification -->
+    <div id="saved-notification" class="saved-notification">Tersimpan ✅</div>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Toggle details
+        document.querySelectorAll('.toggle-detail').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const detail = btn.nextElementSibling;
+                detail.classList.toggle('max-h-0');
+                detail.classList.toggle('max-h-96');
+            });
+        });
+
+        // Progress bars
+        function updateProgress(checks, progressEl, countEl, total) {
+            const checked = Array.from(checks).filter(c => c.checked).length;
+            progressEl.style.width = `${(checked / total) * 100}%`;
+            countEl.textContent = `[${checked}/${total} steps]`;
+            localStorage.setItem(progressEl.id, checked);
+        }
+
+        const stepChecks = document.querySelectorAll('.step-check');
+        const workflowProgress = document.getElementById('workflow-progress');
+        const workflowCount = document.getElementById('workflow-count');
+        stepChecks.forEach(c => c.addEventListener('change', () => updateProgress(stepChecks, workflowProgress, workflowCount, 12)));
+        updateProgress(stepChecks, workflowProgress, workflowCount, 12); // Load from storage if needed
+
+        const dailyChecks = document.querySelectorAll('.daily-check');
+        const dailyProgress = document.getElementById('daily-progress');
+        const dailyCount = document.getElementById('daily-count');
+        dailyChecks.forEach(c => c.addEventListener('change', () => updateProgress(dailyChecks, dailyProgress, dailyCount, 4)));
+        updateProgress(dailyChecks, dailyProgress, dailyCount, 4);
+
+        // Notes autosave
+        const notes = document.getElementById('notes');
+        notes.value = localStorage.getItem('notes') || '';
+        notes.addEventListener('input', () => {
+            localStorage.setItem('notes', notes.value);
+            const noti = document.getElementById('saved-notification');
+            noti.style.display = 'block';
+            setTimeout(() => noti.style.display = 'none', 2000);
+        });
+
+        document.getElementById('clear-notes').addEventListener('click', () => {
+            notes.value = '';
+            localStorage.removeItem('notes');
+        });
+    </script>
+
+</body>
+</html>
